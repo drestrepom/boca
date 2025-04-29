@@ -22,17 +22,17 @@ function globalconf() {
  $conf["dbclientenc"]="UTF8";
  $conf['doenc']=false;
 
- $conf["dblocal"]="false"; // use unix socket to connect?
-$conf["dbhost"]="localhost";
-$conf["dbport"]="5432";
+ // Decide whether to use local socket or TCP based on environment
+ $conf["dblocal"] = getenv('DB_LOCAL') ?: 'false';
 
-  $conf["dbname"]="bocadb"; // name of the boca database
-
-  $conf["dbuser"]="bocauser"; // unprivileged boca user
-$conf["dbpass"]="dAm0HAiC";
-
-  $conf["dbsuperuser"]="bocauser"; // privileged boca user
-$conf["dbsuperpass"]="dAm0HAiC";
+ // Database connection settings (from environment variables or defaults)
+ $conf["dbhost"]      = getenv('DB_HOST') ?: 'localhost';
+ $conf["dbport"]      = getenv('DB_PORT') ?: '5432';
+ $conf["dbname"]      = getenv('DB_NAME') ?: 'bocadb';
+ $conf["dbuser"]      = getenv('DB_USER') ?: 'bocauser';
+ $conf["dbpass"]      = getenv('DB_PASSWORD') ?: 'dAm0HAiC';
+ $conf["dbsuperuser"] = getenv('DB_SUPERUSER') ?: getenv('DB_USER')        ?: 'bocauser';
+ $conf["dbsuperpass"] = getenv('DB_SUPERPASS') ?: getenv('DB_PASSWORD')    ?: 'dAm0HAiC';
 
         // note that it is fine to use the same user
 
