@@ -46,7 +46,7 @@ This will start the following containers:
 1. Once the containers are running, open your browser and navigate to:
 
 ```
-http://localhost:8000/
+http://localhost:8080/
 ```
 
 or whatever port you've configured in your docker-compose.yml.

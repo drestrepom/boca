@@ -7,6 +7,7 @@ RUN apt-get update \
         zip \
         unzip \
         postgresql-client \
+        dos2unix \
     && docker-php-ext-install pgsql pdo_pgsql \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
@@ -26,6 +27,7 @@ EXPOSE 80
 
 # Copy and install custom entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN dos2unix /usr/local/bin/docker-entrypoint.sh \
+    && chmod +x /usr/local/bin/docker-entrypoint.sh
 # Switch to custom entrypoint for auto DB init and Apache startup
 ENTRYPOINT ["docker-entrypoint.sh"]
