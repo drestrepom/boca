@@ -17,11 +17,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Last modified 05/aug/2012 by cassio@ime.usp.br
 
+// Enable full error reporting for debugging
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 ob_start();
-header ("Expires: " . gmdate("D, d M Y H:i:s") . " GMT");
-header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header ("Cache-Control: no-cache, must-revalidate");
-header ("Pragma: no-cache");
+// Disable caching headers to avoid blank pages due to 304 responses
+// header ("Expires: " . gmdate("D, d M Y H:i:s") . " GMT");
+// header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+// header ("Cache-Control: no-cache, must-revalidate");
+// header ("Pragma: no-cache");
 header ("Content-Type: text/html; charset=utf-8");
 session_start();
 $_SESSION["loc"] = dirname($_SERVER['PHP_SELF']);
@@ -34,7 +40,7 @@ require_once("db.php");
 
 if (!isset($_GET["name"])) {
 	if (ValidSession())
-	  DBLogOut($_SESSION["usertable"]["contestnumber"], 
+	  DBLogOut($_SESSION["usertable"]["contestnumber"],
 		   $_SESSION["usertable"]["usersitenumber"], $_SESSION["usertable"]["usernumber"],
 		   $_SESSION["usertable"]["username"]=='admin');
 	session_unset();
@@ -121,31 +127,31 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")) {
 </head>
 <body onload="document.form1.name.focus()">
 <table width="100%" height="100%" border="0">
-  <tr align="center" valign="middle"> 
-    <td> 
+  <tr align="center" valign="middle">
+    <td>
       <form name="form1" action="javascript:computeHASH()">
-        <div align="center"> 
+        <div align="center">
           <table border="0" align="center">
-            <tr> 
+            <tr>
               <td nowrap>
                 <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="+1">
 				BOCA Login</font></div>
               </td>
             </tr>
             <tr>
-              <td valign="top"> 
+              <td valign="top">
                 <table border="0" align="left">
-                  <tr> 
-                    <td><font face="Verdana, Arial, Helvetica, sans-serif" > 
+                  <tr>
+                    <td><font face="Verdana, Arial, Helvetica, sans-serif" >
                       Name
                       </font></td>
-                    <td> 
+                    <td>
                       <input type="text" name="name">
                     </td>
                   </tr>
-                  <tr> 
+                  <tr>
                     <td><font face="Verdana, Arial, Helvetica, sans-serif" >Password</font></td>
-                    <td> 
+                    <td>
                       <input type="password" name="password">
                     </td>
                   </tr>
